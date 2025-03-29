@@ -24,6 +24,8 @@ Create a new personal API Client
 
 Copy your client information into `backup-config.py` or `restore-config.py`
 
+![step5](https://github.com/BetaDoggo/Mangadex-backup/blob/main/images/step%205.png)
+
 Then run:
 
 ```
