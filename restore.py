@@ -59,7 +59,12 @@ auth_response = session.post(
         "client_secret": config['client_secret']
     }
 ).json()
-access_token = auth_response['access_token']
+try:
+    access_token = auth_response['access_token']
+except:
+    print("Error:", auth_response['error_description'])
+    exit()
+
 
 print("Starting the restore script with the following account:\n")
 print(f"\nAccount: {config['username']}\nClient: {config['client_id']}\n")
@@ -91,3 +96,5 @@ for title in backup.keys():
     else:
         read_chapters(session, access_token, backup[title]['id'], chapter_list)
     time.sleep(0.5) # let's try not to ddos them
+
+print("done")
