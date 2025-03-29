@@ -22,7 +22,7 @@ Create a new personal API Client
 
 ![step4](https://github.com/BetaDoggo/Mangadex-backup/blob/main/images/step%204.png)
 
-Copy your client information into `backup-config.py` or `restore-config.py`
+Copy your client information into `backup-config.json` or `restore-config.json`
 
 ![step5](https://github.com/BetaDoggo/Mangadex-backup/blob/main/images/step%205.png)
 
