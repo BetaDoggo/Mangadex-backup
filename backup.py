@@ -37,7 +37,7 @@ def get_chapters_info(ids, session):
         )
         
         if response.status_code == 429:
-            print("Ran into rate limit, this shouldn't happen unless you've modified the the hardcoded limits, or maybe there's someone else on your network abusing the api.\nYou should wait a while before trying again.")
+            print("Ran into rate limit, this shouldn't happen unless you've modified the hardcoded limits, or maybe there's someone else on your network abusing the api.\nYou should wait a while before trying again.")
             exit()
         elif response.status_code == 403:
             print("It looks like you've been temporarily ip banned, you'll have to wait quite a while before trying again. This should never happen unless you've disabled the previous protections.")
@@ -86,7 +86,7 @@ def get_formatted_chapters(read_chapters, title,session):
         }
         chapters.append(formatted_chapter)
         print(f"Got '{title}' chapter {chapter['attributes']['chapter']}")
-        chapters.sort(key=lambda x: float(x['chapter_number'])) # holy shit a lambda
+        chapters.sort(key=lambda x: float(x['chapter_number'])) # holy shit a use for lambda
     return(chapters)
 
 def get_manga(title_id,reader_status,session):
@@ -119,6 +119,7 @@ def get_manga(title_id,reader_status,session):
         "chapters": chapters,
     }
     return(full_info, title)
+
 
 session = requests.Session()
 
@@ -170,6 +171,8 @@ for item in titles:
     status = item[1]
     data, title = (get_manga(uuid,status,session))
     full_data[title] = data
+
+full_data = dict(sorted(full_data.items())) # sort titles
 
 with open(filename, "w", encoding="utf-8") as f:
     json.dump(full_data, f, indent=4)
