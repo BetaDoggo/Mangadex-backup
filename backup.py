@@ -4,6 +4,8 @@ import time
 import json
 import os
 
+total_chapters = 0
+
 def get_manga_list(session):
     # gets a list title ids from the user's lists
     response = session.get(
@@ -90,6 +92,7 @@ def get_formatted_chapters(read_chapters, title,session):
     return(chapters)
 
 def get_manga(title_id,reader_status,session):
+    global total_chapters
     # gets required information from a title, also returns title
     info = get_manga_info(title_id, session)
     try:
@@ -100,7 +103,7 @@ def get_manga(title_id,reader_status,session):
     
     chapters = [] # fallback if no chapters are read
     chapters = (get_formatted_chapters(read_chapters,title,session))
-
+    total_chapters += len(chapters)
     tags = []
     for tag in info['attributes']['tags']:
         tags.append(tag['attributes']['name']['en'])
@@ -178,3 +181,4 @@ with open(filename, "w", encoding="utf-8") as f:
     json.dump(full_data, f, indent=4)
 
 print("done")
+print(f"You've read {total_chapters} chapters in total")
